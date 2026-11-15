@@ -8,6 +8,9 @@ on:
       - ".github/workflows/daily.yml"
       - ".github/workflows/publish-state-tests.yml"
       - "scripts/publish_gate.py"
+      - "scripts/publish_preflight.py"
+      - "tests/test_publish_preflight.py"
+      - "platforms.py"
       - "scripts/save_publish_state.sh"
       - "tests/test_publish_gate.py"
       - "tests/test_save_publish_state.py"
@@ -25,5 +28,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+      - name: Install test dependency
+        run: pip install 'requests>=2.31.0'
       - name: Run publish-state fixtures
         run: python -m unittest discover -s tests -p 'test_*.py' -v
